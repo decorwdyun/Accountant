@@ -46,10 +46,10 @@ public class DemolitionWarning : IDisposable
 
         var status = days switch
         {
-            > DemolitionManager.DefaultDisplayMax   => "Demolished",
-            DemolitionManager.DefaultDisplayMax     => "<1 Day Remaining",
-            DemolitionManager.DefaultDisplayMax - 1 => "1 Day Remaining",
-            _                                       => $"{DemolitionManager.DefaultDisplayMax - days} Days Remaining",
+            > DemolitionManager.DefaultDisplayMax   => "已拆除",
+            DemolitionManager.DefaultDisplayMax     => "<1 天",
+            DemolitionManager.DefaultDisplayMax - 1 => "1 天",
+            _                                       => $"{DemolitionManager.DefaultDisplayMax - days} 天",
         };
         var color = days > DemolitionManager.DefaultDisplayMax
             ? ColorId.TextCropWithered
@@ -81,19 +81,19 @@ public class DemolitionWarning : IDisposable
         var content = days switch
         {
             > DemolitionManager.DefaultDisplayMax =>
-                $"Your house {plot.Name} may have been demolished. Please visit it with a tracked character or remove tracking if you do not own this house anymore.",
+                $"你的房屋 {plot.Name} 可能已经被拆除了. 请使用房屋主人角色进入房屋室内，如果你不再拥有该房屋，请在设置界面移除。",
             DemolitionManager.DefaultDisplayMax =>
-                $"Your house {plot.Name} will be demolished in less than a day. Please visit it with a tracked character.",
+                $"你的房屋 {plot.Name} 将在 24 小时内被自动拆除. 请使用房屋主人角色进入房屋室内以重置计时器.",
             DemolitionManager.DefaultDisplayMax - 1 =>
-                $"Your house {plot.Name} will be demolished within the next day. Please visit it with a tracked character.",
-            _ => $"Your house {plot.Name} will be demolished in {DemolitionManager.DefaultDisplayMax - days} days. Please visit it with a tracked character.",
+                $"你的房屋 {plot.Name} 明天将会被自动拆除. 请使用房屋主人角色进入房屋室内以重置计时器.",
+            _ => $"你的房屋 {plot.Name} 将会在 {DemolitionManager.DefaultDisplayMax - days} 天后被自动拆除. 请使用房屋主人角色进入房屋室内以重置计时器。",
         };
 
         if (!_notifications.Remove(plot, out var activeNotification))
         {
             var notification = new Notification
             {
-                Title                       = "Housing Alert! Imminent Destruction!",
+                Title                       = "房屋拆除警报！即将遭殃！",
                 Content                     = content,
                 Icon                        = INotificationIcon.From(FontAwesomeIcon.ExclamationTriangle),
                 Type                        = NotificationType.Warning,
@@ -102,7 +102,7 @@ public class DemolitionWarning : IDisposable
                 ShowIndeterminateIfNoExpiry = true,
                 Minimized                   = false,
                 UserDismissable             = true,
-                MinimizedText               = "Housing Alert! Imminent Destruction!",
+                MinimizedText               = "房屋拆除警报！即将遭殃！",
             };
             notifications.Add(plot, Dalamud.Notifications.AddNotification(notification));
         }

@@ -9,7 +9,7 @@
     <WarningLevel>4</WarningLevel>
     <OutputPath>bin\$(Configuration)\</OutputPath>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\Accountant.GameData\Accountant.GameData.csproj" />
     <ProjectReference Include="..\AddonWatcher\AddonWatcher.csproj" />

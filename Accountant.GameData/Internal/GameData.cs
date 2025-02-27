@@ -135,7 +135,7 @@ internal class GameData : IGameData
         if (world.IsPublic)
             return true;
 
-        return char.IsUpper((char)world.Name.Data.Span[0]);
+        return world.RowId > 1000;
     }
 
     public void Dispose()

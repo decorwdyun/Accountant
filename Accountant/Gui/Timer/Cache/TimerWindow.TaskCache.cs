@@ -18,7 +18,7 @@ public partial class TimerWindow
         private readonly TaskTimers _tasks;
 
         public TaskCache(TimerWindow window, ConfigFlags required, TaskTimers tasks)
-            : base("Tasks", required, window)
+            : base("日常任务", required, window)
         {
             _tasks         =  tasks;
             _tasks.Changed += Resetter;
@@ -38,30 +38,30 @@ public partial class TimerWindow
 
         private static Action GenerateTooltip(Squadron info)
         {
-            var missionName  = info.MissionName() ?? "Squadron Mission";
-            var trainingName = info.TrainingName() ?? "Squadron Training";
+            var missionName  = info.MissionName() ?? "分队任务";
+            var trainingName = info.TrainingName() ?? "分队训练";
             return () =>
             {
                 ImGui.BeginTooltip();
                 var now = DateTime.UtcNow;
                 ImGui.BeginGroup();
-                ImGui.Text("New Recruits");
+                ImGui.Text("新志愿兵");
                 ImGui.Text(missionName);
                 ImGui.Text(trainingName);
                 ImGui.EndGroup();
                 ImGui.SameLine();
                 ImGui.BeginGroup();
-                ImGui.Text(info.NewRecruits ? StringId.Available.Value() : "None");
+                ImGui.Text(info.NewRecruits ? "有" : "无");
                 if (info.MissionEnd == DateTime.MinValue)
-                    ImGui.Text(StringId.Available.Value());
+                    ImGui.Text("可用");
                 else if (info.MissionEnd < now)
-                    ImGui.Text(StringId.Completed.Value());
+                    ImGui.Text("可用");
                 else
                     ImGui.Text(TimeSpanString(info.MissionEnd - now));
                 if (info.TrainingEnd == DateTime.MinValue)
-                    ImGui.Text(StringId.Available.Value());
+                    ImGui.Text("可用");
                 else if (info.TrainingEnd < now)
-                    ImGui.Text(StringId.Completed.Value());
+                    ImGui.Text("可用");
                 else
                     ImGui.Text(TimeSpanString(info.TrainingEnd - now));
                 ImGui.EndGroup();
@@ -99,12 +99,12 @@ public partial class TimerWindow
 
             if (info.MissionId == 0)
             {
-                ret.DisplayString = StringId.Available.Value();
+                ret.DisplayString = "可执行任务";
                 ret.Color         = ColorId.NeutralText;
             }
             else if (info.MissionEnd < Now)
             {
-                ret.DisplayString = StringId.Completed.Value();
+                ret.DisplayString = "已完成";
                 ret.Color         = ColorId.TextObjectsHome;
             }
             else
@@ -214,6 +214,7 @@ public partial class TimerWindow
                 DisplayTime = UpdateNextChange(nextReset),
             };
             var allowances = delivery.CurrentAllowances(DateTime.UtcNow);
+
             (ret.DisplayString, ret.Color) = allowances switch
             {
                 0                     => ($"0/{Delivery.AllowanceCap}", ColorId.TextObjectsAway),
@@ -262,7 +263,7 @@ public partial class TimerWindow
                 leveSum   += leves;
             }
 
-            ret.Name = $"Leve Allowances ({leveSum})###LeveAllowances";
+            ret.Name = $"理符受理限额 ({leveSum})###LeveAllowances";
             return ret;
         }
 
@@ -270,7 +271,7 @@ public partial class TimerWindow
         {
             var ret = new SmallHeader
             {
-                Name         = "Squadrons",
+                Name         = "冒险者小队",
                 ObjectsBegin = Objects.Count,
                 ObjectsCount = data.Count,
                 DisplayTime  = DateTime.MaxValue,
@@ -296,7 +297,7 @@ public partial class TimerWindow
         {
             var ret = new SmallHeader
             {
-                Name         = "Map Allowance",
+                Name         = "藏宝图",
                 ObjectsBegin = Objects.Count,
                 ObjectsCount = data.Count,
                 DisplayTime  = DateTime.MaxValue,
@@ -321,7 +322,7 @@ public partial class TimerWindow
         {
             var ret = new SmallHeader
             {
-                Name         = "Mini Cactpot",
+                Name         = "仙人微彩",
                 ObjectsBegin = Objects.Count,
                 ObjectsCount = data.Count,
                 DisplayTime  = DateTime.MaxValue,
@@ -351,7 +352,7 @@ public partial class TimerWindow
         {
             var ret = new SmallHeader
             {
-                Name         = "Jumbo Cactpot",
+                Name         = "仙人彩",
                 ObjectsBegin = Objects.Count,
                 ObjectsCount = data.Count,
                 DisplayTime  = DateTime.MaxValue,
@@ -377,7 +378,7 @@ public partial class TimerWindow
         {
             var ret = new SmallHeader
             {
-                Name         = "Custom Deliveries",
+                Name         = "老主顾",
                 ObjectsBegin = Objects.Count,
                 ObjectsCount = data.Count,
                 DisplayTime  = DateTime.MaxValue,
@@ -403,7 +404,7 @@ public partial class TimerWindow
         {
             var ret = new SmallHeader
             {
-                Name         = "Tribal Quests",
+                Name         = "友好部族任务",
                 ObjectsBegin = Objects.Count,
                 ObjectsCount = data.Count,
                 DisplayTime  = DateTime.MaxValue,

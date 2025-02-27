@@ -15,7 +15,7 @@ public partial class TimerWindow
         public           ObjectCounter  Counter;
 
         public RetainerCache(TimerWindow window, ConfigFlags requiredFlags, RetainerTimers retainers)
-            : base("Retainers", requiredFlags, window)
+            : base("雇员", requiredFlags, window)
         {
             _retainers         =  retainers;
             _retainers.Changed += Resetter;
