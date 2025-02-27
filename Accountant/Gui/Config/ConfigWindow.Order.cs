@@ -29,7 +29,7 @@ public partial class ConfigWindow
 
     private void DrawOrderNamesTab()
     {
-        if (!ImGui.BeginTabItem("Order##AccountantTabs"))
+        if (!ImGui.BeginTabItem("排序##AccountantTabs"))
             return;
 
         using var raii = ImGuiRaii.DeferredEnd(ImGui.EndTabItem);
@@ -47,8 +47,8 @@ public partial class ConfigWindow
         raii.Push(ImGui.EndTable);
 
         ImGui.TableSetupColumn("##",       ImGuiTableColumnFlags.WidthFixed, ImGui.GetStyle().FrameBorderSize);
-        ImGui.TableSetupColumn("Priority", ImGuiTableColumnFlags.WidthFixed, 150 * ImGuiHelpers.GlobalScale);
-        ImGui.TableSetupColumn("Name",     ImGuiTableColumnFlags.WidthStretch);
+        ImGui.TableSetupColumn("优先级", ImGuiTableColumnFlags.WidthFixed, 150 * ImGuiHelpers.GlobalScale);
+        ImGui.TableSetupColumn("名字",     ImGuiTableColumnFlags.WidthStretch);
         ImGui.TableHeadersRow();
         ImGui.TableSetupScrollFreeze(0, 1);
 

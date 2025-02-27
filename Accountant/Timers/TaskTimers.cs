@@ -108,6 +108,7 @@ public sealed class TaskTimers : TimersBase<PlayerInfo, TaskInfo>
             Allowances = allowances,
             LastUpdate = DateTime.UtcNow,
         };
+        
         if (!InternalData.TryGetValue(player, out var tasks))
         {
             InternalData[player] = new TaskInfo

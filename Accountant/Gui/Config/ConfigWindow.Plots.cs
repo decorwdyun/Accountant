@@ -16,7 +16,7 @@ public partial class ConfigWindow
 {
     private void DrawDemolitionTab()
     {
-        if (!ImGui.BeginTabItem("Demolition Tracker##AccountantTabs"))
+        if (!ImGui.BeginTabItem("房屋拆除追踪器##AccountantTabs"))
             return;
 
         using var raii = ImGuiRaii.DeferredEnd(ImGui.EndTabItem);
@@ -48,21 +48,21 @@ public partial class ConfigWindow
             return;
         }
 
-        ImGui.InputTextWithHint("Custom Name", "Leave blank for default...", ref data.Name, 128);
+        ImGui.InputTextWithHint("自定义房屋名", "不输入将会使用默认名字", ref data.Name, 128);
         if (ImGui.IsItemDeactivatedAfterEdit())
         {
             _timerWindow.ResetCache();
             _demoManager.Save();
         }
 
-        if (ImGui.Checkbox("Tracked", ref data.Tracked))
+        if (ImGui.Checkbox("开启追踪", ref data.Tracked))
             _demoManager.Save();
         ImGui.SameLine();
         ImGuiComponents.HelpMarker(
             "The name entered here will replace all occurrences of the plot in the timer window.\n\nThe timer limit will show this house as due to be demolished in the timer window when the configured number of days passed since your last visit.\n\nThe warning timer limit will show notifications on the bottom right when the configured number of days passed since your last visit.\n\nYou need to manually add players that reset the timer when encountered within the house, otherwise the timer will not update.");
 
         var tmpDays = (int)data.DisplayFrom;
-        if (ImGui.DragInt("Show in Timers", ref tmpDays, 0.1f, 0, DemolitionManager.DefaultDisplayMax, "%i Days Since Visit"))
+        if (ImGui.DragInt("在计时悬浮窗显示", ref tmpDays, 0.1f, 0, DemolitionManager.DefaultDisplayMax, "%i 天倒计时"))
         {
             tmpDays = Math.Clamp(tmpDays, 0, DemolitionManager.DefaultDisplayMax);
             if (tmpDays != data.DisplayFrom)
@@ -73,7 +73,7 @@ public partial class ConfigWindow
         }
 
         tmpDays = data.DisplayWarningFrom;
-        if (ImGui.DragInt("Show Warnings", ref tmpDays, 0.1f, 0, DemolitionManager.DefaultDisplayMax, "%i Days Since Visit"))
+        if (ImGui.DragInt("在右下角显示警报", ref tmpDays, 0.1f, 0, DemolitionManager.DefaultDisplayMax, "%i 天倒计时"))
         {
             tmpDays = Math.Clamp(tmpDays, 0, DemolitionManager.DefaultDisplayMax);
             if (tmpDays != data.DisplayWarningFrom)
@@ -86,9 +86,9 @@ public partial class ConfigWindow
         var ctrl = ImGui.GetIO().KeyCtrl;
         var text = data.LastVisitDays switch
         {
-            <= 1                                  => "Last Visit: Less than a day ago",
-            > DemolitionManager.DefaultDisplayMax => $"Last Visit: More than {DemolitionManager.DefaultDisplayMax} days ago",
-            _                                     => $"Last Visit: {data.LastVisitDays} days ago",
+            <= 1                                  => "上次访问: 24 小时内",
+            > DemolitionManager.DefaultDisplayMax => $"上次访问: {DemolitionManager.DefaultDisplayMax} 天前",
+            _                                     => $"上次访问: {data.LastVisitDays} 天前",
         };
         using (ImRaii.Disabled(!ctrl))
         {
@@ -100,9 +100,9 @@ public partial class ConfigWindow
         }
 
         if (ImGui.IsItemHovered(ImGuiHoveredFlags.AllowWhenDisabled))
-            ImGui.SetTooltip("Hold Control and click this button to force the last visit to now.");
+            ImGui.SetTooltip("按住 ctrl 键并点击这个按钮将强制更新状态为已进入房屋室内");
 
-        ImGui.InputTextWithHint("##PlayerName", "New Player Name...", ref _newPlayerName, 40);
+        ImGui.InputTextWithHint("##PlayerName", "玩家(房屋主人)名字...", ref _newPlayerName, 40);
         ImGui.SameLine(0, ImGui.GetStyle().ItemInnerSpacing.X);
         if (_newWorldId is 0 && Dalamud.PlayerState.IsLoaded)
             _newWorldId = (ushort)Dalamud.PlayerState.HomeWorld.RowId;
@@ -113,7 +113,7 @@ public partial class ConfigWindow
                 || _newWorldId == 0
                 || data.CheckedPlayers.Contains(new PlayerInfo(_newPlayerName, _newWorldId))))
         {
-            if (ImGui.Button("Add New Player"))
+            if (ImGui.Button("添加新玩家"))
             {
                 data.CheckedPlayers.Add(new PlayerInfo(_newPlayerName, _newWorldId));
                 _demoManager.Save();
@@ -128,7 +128,7 @@ public partial class ConfigWindow
         using (ImRaii.Disabled(Dalamud.Objects.LocalPlayer is null
                 || data.CheckedPlayers.Contains(new PlayerInfo(Dalamud.Objects.LocalPlayer))))
         {
-            if (ImGui.Button("Add Current Player"))
+            if (ImGui.Button("添加当前玩家"))
             {
                 data.CheckedPlayers.Add(new PlayerInfo(Dalamud.Objects.LocalPlayer!));
                 _demoManager.Save();
@@ -136,7 +136,7 @@ public partial class ConfigWindow
         }
 
         if (ImGui.IsItemHovered(ImGuiHoveredFlags.AllowWhenDisabled))
-            ImGui.SetTooltip("Add your current character.");
+            ImGui.SetTooltip("添加你当前的角色.");
 
         if (ImGui.BeginListBox("##list", ImGui.GetContentRegionAvail()))
         {
@@ -156,7 +156,7 @@ public partial class ConfigWindow
                 }
 
                 if (ImGui.IsItemHovered())
-                    ImGui.SetTooltip("Remove this character from tracking.");
+                    ImGui.SetTooltip("删除这个玩家.");
 
                 ImGui.SameLine();
                 ImGui.AlignTextToFramePadding();
@@ -201,11 +201,11 @@ public partial class ConfigWindow
         ImGui.TableNextColumn();
         var canAdd = _demoManager.CanAddPlot(newPlot);
         var tt = canAdd
-            ? "Add the plot configured in the inputs."
-            : "The plot configured in the inputs was already added.";
+            ? "添加你输入的房屋到追踪器."
+            : "输入的地块已经添加过了.";
         using (ImRaii.Disabled(!canAdd))
         {
-            if (ImGui.Button("Add Plot"))
+            if (ImGui.Button("添加房屋"))
                 _demoManager.AddPlot(newPlot);
         }
 
@@ -216,13 +216,13 @@ public partial class ConfigWindow
         var currentPlot = _demoManager.CurrentPlot;
         tt = (currentPlot.Valid(), _demoManager.CanAddPlot(currentPlot)) switch
         {
-            (true, true)  => $"Add the plot {currentPlot.ToName()} on {Accountant.GameData.GetWorldName(currentPlot.ServerId)}.",
-            (false, _)    => "You are not on an identifiable plot.",
-            (true, false) => $"The plot {currentPlot.ToName()} on {Accountant.GameData.GetWorldName(currentPlot.ServerId)} was already added",
+            (true, true)  => $"添加当前房屋 {currentPlot.ToName()} on {Accountant.GameData.GetWorldName(currentPlot.ServerId)}.",
+            (false, _)    => "你不在可识别的房屋.",
+            (true, false) => $"当前房屋 {currentPlot.ToName()} on {Accountant.GameData.GetWorldName(currentPlot.ServerId)} 已经添加过了",
         };
-        using (ImRaii.Disabled(tt[0] != 'A'))
+        using (ImRaii.Disabled(tt[0] != '添'))
         {
-            if (ImGui.Button("Add Current Plot"))
+            if (ImGui.Button("添加当前房屋"))
             {
                 var plot = _demoManager.CurrentPlot;
                 if (plot.Valid())
@@ -236,14 +236,14 @@ public partial class ConfigWindow
         ImGui.SameLine();
         tt = (ImGui.GetIO().KeyCtrl, _demoManager.Data.ContainsKey(_selectedPlot)) switch
         {
-            (true, true)   => "Delete the selected plot.",
-            (true, false)  => "Select a plot to delete.",
-            (false, false) => "Select a plot and hold Control to delete.",
-            (false, true)  => "Hold Control to delete the selected plot.",
+            (true, true)   => "删除选中的房屋",
+            (true, false)  => "请选择要删除的房屋",
+            (false, false) => "选择一个房屋并且按住 ctrl 即可删除",
+            (false, true)  => "按住 ctrl 即可删除选中的房屋",
         };
-        using (ImRaii.Disabled(tt[0] != 'D'))
+        using (ImRaii.Disabled(tt[0] != '删'))
         {
-            if (ImGui.Button("Delete Selected Plot") && _demoManager.Data.Remove(_selectedPlot))
+            if (ImGui.Button("删除选中的房屋") && _demoManager.Data.Remove(_selectedPlot))
                 _demoManager.Save();
         }
 

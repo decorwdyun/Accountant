@@ -190,13 +190,13 @@ public partial class TimerWindow : IDisposable
             return;
 
         using var c = ImGuiRaii.PushColor(ImGuiCol.Header, _demolitionWarning.HeaderColor.Value());
-        ImGui.CollapsingHeader("No Full Free Company Data", ImGuiTreeNodeFlags.DefaultOpen);
+        ImGui.CollapsingHeader("未能获取到部队数据", ImGuiTreeNodeFlags.DefaultOpen);
         if (ImGui.IsItemHovered())
         {
             using var tt = ImRaii.Tooltip();
-            ImGui.TextWrapped("No full data about your current free company available.\n\n"
-              + "Please leave your current instance or relog onto your character if this does not help to obtain Free Company Data after a Accountant Update.\n\n"
-              + "You can disable this warning permanently in the settings.");
+            ImGui.TextWrapped("无法获取到完整的部队数据\n\n"
+              + "如果在 Accountant 更新后无法获取部队数据，请重启你的游戏。\n\n"
+              + "您也可以在插件设置中永久禁用此警告。");
         }
     }
 
@@ -206,7 +206,7 @@ public partial class TimerWindow : IDisposable
             return;
 
         using var c = ImGuiRaii.PushColor(ImGuiCol.Header, _demolitionWarning.HeaderColor.Value());
-        if (!ImGui.CollapsingHeader("Demolishing Houses", ImGuiTreeNodeFlags.DefaultOpen))
+        if (!ImGui.CollapsingHeader("房屋自动拆除", ImGuiTreeNodeFlags.DefaultOpen))
             return;
 
         foreach (var warning in _demolitionWarning.Warnings)

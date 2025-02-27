@@ -59,7 +59,7 @@ public sealed class StringParser : ILocFilter
         return new StringParser(Func);
     }
 
-    public static StringParser FromRegex(ClientLanguage lang, Regex en, Regex fr, Regex jp, Regex de, params string[] captureNames)
+    public static StringParser FromRegex(ClientLanguage lang, Regex en, Regex fr, Regex jp, Regex de, Regex cn, params string[] captureNames)
     {
         var regex = lang switch
         {
@@ -67,6 +67,7 @@ public sealed class StringParser : ILocFilter
             ClientLanguage.English  => en,
             ClientLanguage.German   => de,
             ClientLanguage.French   => fr,
+            (ClientLanguage)4       => cn,
             _                       => en,
         };
 

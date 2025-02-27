@@ -70,7 +70,9 @@ public partial class TimerManager
             var player = new PlayerInfo(p);
 
             if (_tasks!.AddOrUpdateDeliveries(player, allowances))
+            {
                 _tasks.Save(player);
+            }
         }
 
         private void OnFrameworkDelivery(IFramework _)

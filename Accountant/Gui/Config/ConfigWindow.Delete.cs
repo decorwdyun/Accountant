@@ -18,7 +18,7 @@ public partial class ConfigWindow
             var draw     = ImGui.TreeNodeEx(plotName);
             if (ImGui.IsItemClicked(ImGuiMouseButton.Right) && ImGui.GetIO().KeyCtrl && ImGui.GetIO().KeyShift)
                 deleteInfo = plot;
-            ImGuiRaii.HoverTooltip("Hold Control, Shift and right-click to delete.");
+            ImGuiRaii.HoverTooltip("按住 Ctrl+Shift 然后右键删除。");
 
             if (!draw)
                 continue;
@@ -31,7 +31,7 @@ public partial class ConfigWindow
                 ImGui.Selectable($"{idx + 1:D2} - {bedName}: {plantName}");
                 if (ImGui.IsItemClicked(ImGuiMouseButton.Right) && ImGui.GetIO().KeyShift)
                     deleteIdx = idx;
-                ImGuiRaii.HoverTooltip("Hold Shift and right-click to delete.");
+                ImGuiRaii.HoverTooltip("按住 Ctrl+Shift 然后右键删除。");
             }
 
             ImGui.TreePop();
@@ -59,7 +59,7 @@ public partial class ConfigWindow
             var draw       = ImGui.TreeNodeEx(playerName);
             if (ImGui.IsItemClicked(ImGuiMouseButton.Right) && ImGui.GetIO().KeyCtrl && ImGui.GetIO().KeyShift)
                 deleteInfo = player;
-            ImGuiRaii.HoverTooltip("Hold Control, Shift and right-click to delete.");
+            ImGuiRaii.HoverTooltip("按住 Ctrl+Shift 然后右键删除。");
 
             if (!draw)
                 continue;
@@ -72,7 +72,7 @@ public partial class ConfigWindow
                 ImGui.Selectable($"{idx + 1:D2} - {bedName}: {plantName}");
                 if (ImGui.IsItemClicked(ImGuiMouseButton.Right) && ImGui.GetIO().KeyShift)
                     deleteIdx = idx;
-                ImGuiRaii.HoverTooltip("Hold Shift and right-click to delete.");
+                ImGuiRaii.HoverTooltip("按住 Ctrl+Shift 然后右键删除。");
             }
 
             ImGui.TreePop();
@@ -101,7 +101,7 @@ public partial class ConfigWindow
             ImGui.Selectable(playerName);
             if (ImGui.IsItemClicked(ImGuiMouseButton.Right) && ImGui.GetIO().KeyCtrl && ImGui.GetIO().KeyShift)
                 deleteInfo = player;
-            ImGuiRaii.HoverTooltip("Hold Control, Shift and right-click to delete.");
+            ImGuiRaii.HoverTooltip("按住 Ctrl+Shift 然后右键删除。");
         }
 
         if (deleteInfo == null)
@@ -134,7 +134,7 @@ public partial class ConfigWindow
             ImGui.Selectable(companyName);
             if (ImGui.IsItemClicked(ImGuiMouseButton.Right) && ImGui.GetIO().KeyCtrl && ImGui.GetIO().KeyShift)
                 deleteInfo = company;
-            ImGuiRaii.HoverTooltip("Hold Control, Shift and right-click to delete.");
+            ImGuiRaii.HoverTooltip("按住 Ctrl+Shift 然后右键删除。");
         }
 
         if (deleteInfo == null)
@@ -166,7 +166,7 @@ public partial class ConfigWindow
 
     private void DrawDeleteTab()
     {
-        if (!ImGui.BeginTabItem("Delete Entries##AccountantTabs"))
+        if (!ImGui.BeginTabItem("删除条目##AccountantTabs"))
             return;
 
         using var raii = ImGuiRaii.DeferredEnd(ImGui.EndTabItem);
@@ -176,25 +176,25 @@ public partial class ConfigWindow
 
         raii.Push(ImGui.EndChild);
         using var id = ImGuiRaii.PushId("Deletion");
-        if (ImGui.CollapsingHeader("Crop Entries"))
+        if (ImGui.CollapsingHeader("作物"))
         {
             DrawDeletePlotCrops();
             DrawDeletePrivateCrops();
         }
 
-        if (ImGui.CollapsingHeader("Retainer Entries"))
+        if (ImGui.CollapsingHeader("雇员"))
             DrawDeleteRetainerEntries();
 
-        if (ImGui.CollapsingHeader("Task Entries"))
+        if (ImGui.CollapsingHeader("日常任务"))
             DrawDeleteTaskEntries();
 
-        if (ImGui.CollapsingHeader("Airship Entries"))
+        if (ImGui.CollapsingHeader("飞空艇"))
             DrawDeleteAirshipEntries();
 
-        if (ImGui.CollapsingHeader("Submersible Entries"))
+        if (ImGui.CollapsingHeader("潜水艇"))
             DrawDeleteSubmersibleEntries();
 
-        if (ImGui.CollapsingHeader("Wheel Entries"))
+        if (ImGui.CollapsingHeader("以太转轮"))
             DrawDeleteWheelEntries();
     }
 }

@@ -17,7 +17,7 @@ public partial class TimerWindow
         private readonly PrivateCropTimers _privateCrops;
 
         public CropCache(TimerWindow window, ConfigFlags requiredFlags, PlotCropTimers plotCrops, PrivateCropTimers privateCrops)
-            : base("Crops", requiredFlags, window)
+            : base("园圃", requiredFlags, window)
         {
             _plotCrops            =  plotCrops;
             _privateCrops         =  privateCrops;
@@ -43,11 +43,11 @@ public partial class TimerWindow
         private static string TimeSpanString2(DateTime target, DateTime now)
         {
             if (target == DateTime.MinValue)
-                return "Already";
+                return "已经";
             if (target == DateTime.UnixEpoch)
-                return "Unknown";
+                return "未知";
             if (target == DateTime.MaxValue)
-                return "Never";
+                return "永不";
 
             return target < now ? "Already" : TimeSpanString(target - now, 3);
         }
@@ -73,13 +73,13 @@ public partial class TimerWindow
                 }
 
                 ImGui.BeginGroup();
-                ImGui.Text("Planted:");
-                ImGui.Text("Tended:");
-                ImGui.Text("Finished:");
-                ImGui.Text("Wilting:");
-                ImGui.Text("Withering:");
+                ImGui.Text("种植:");
+                ImGui.Text("护理:");
+                ImGui.Text("成熟:");
+                ImGui.Text("冒紫烟:");
+                ImGui.Text("枯萎:");
                 if (plant.Position != Vector3.Zero)
-                    ImGui.Text("Position:");
+                    ImGui.Text("位置:");
                 ImGui.EndGroup();
                 ImGui.SameLine();
                 if (!plant.AccuratePlantTime)
@@ -100,8 +100,8 @@ public partial class TimerWindow
                 ImGui.Text(plantTimeString);
                 ImGui.Text(plant.LastTending.ToLocalTime().ToString(CultureInfo.CurrentCulture));
                 ImGui.Text(TimeSpanString2(fin, DateTime.UtcNow));
-                ImGui.Text(fin < wilt ? "Never" : TimeSpanString2(wilt,     DateTime.UtcNow));
-                ImGui.Text(fin < wither ? "Never" : TimeSpanString2(wither, DateTime.UtcNow));
+                ImGui.Text(fin < wilt ? "永不" : TimeSpanString2(wilt,     DateTime.UtcNow));
+                ImGui.Text(fin < wither ? "永不" : TimeSpanString2(wither, DateTime.UtcNow));
                 if (plant.Position != Vector3.Zero)
                     ImGui.Text(FormattableString.Invariant($"({plant.Position.X:F1}, {plant.Position.Y:F1}, {plant.Position.Z:F1})"));
                 ImGui.EndGroup();
