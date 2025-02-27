@@ -19,7 +19,7 @@ public partial class ConfigWindow
 
     private void DrawBlocklistsTab()
     {
-        using var tabItem = ImRaii.TabItem("Blocklist##AccountantTabs");
+        using var tabItem = ImRaii.TabItem("黑名单##AccountantTabs");
         if (!tabItem)
             return;
 
@@ -32,19 +32,19 @@ public partial class ConfigWindow
 
         if (ImGui.CollapsingHeader("Blocked Crops"))
             DrawBlockedCrops();
-        if (ImGui.CollapsingHeader("Blocked Plots"))
+        if (ImGui.CollapsingHeader("黑名单房屋"))
             DrawBlockedPlots();
-        if (ImGui.CollapsingHeader("Blocked Players (Crops)"))
+        if (ImGui.CollapsingHeader("黑名单玩家 (作物)"))
             DrawBlockedPlayers("Crops", Accountant.Config.BlockedPlayersCrops, typeof(TimerWindow.CropCache));
-        if (ImGui.CollapsingHeader("Blocked Players (Retainers)"))
+        if (ImGui.CollapsingHeader("黑名单玩家 (雇员)"))
             DrawBlockedPlayers("Retainers", Accountant.Config.BlockedPlayersRetainers, typeof(TimerWindow.RetainerCache));
-        if (ImGui.CollapsingHeader("Blocked Players (Tasks)"))
+        if (ImGui.CollapsingHeader("黑名单玩家 (日常任务)"))
             DrawBlockedPlayers("Tasks", Accountant.Config.BlockedPlayersTasks, typeof(TimerWindow.TaskCache));
-        if (ImGui.CollapsingHeader("Blocked Free Companies (Airships)"))
+        if (ImGui.CollapsingHeader("黑名单部队 (飞空艇)"))
             DrawBlockedCompanies("Airships", Accountant.Config.BlockedCompaniesAirships, typeof(TimerWindow.MachineCache));
-        if (ImGui.CollapsingHeader("Blocked Free Companies (Submersibles)"))
+        if (ImGui.CollapsingHeader("黑名单部队 (潜水艇)"))
             DrawBlockedCompanies("Submersibles", Accountant.Config.BlockedCompaniesSubmersibles, typeof(TimerWindow.MachineCache));
-        if (ImGui.CollapsingHeader("Blocked Free Companies (Aetherial Wheels)"))
+        if (ImGui.CollapsingHeader("黑名单部队 (以太转轮)"))
             DrawBlockedCompanies("Wheels", Accountant.Config.BlockedCompaniesWheels, typeof(TimerWindow.WheelCache));
     }
 
