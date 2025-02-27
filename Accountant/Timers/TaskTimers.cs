@@ -108,6 +108,7 @@ public sealed class TaskTimers : TimersBase<PlayerInfo, TaskInfo>
             Allowances = allowances,
             LastUpdate = DateTime.UtcNow,
         };
+        
         if (!InternalData.TryGetValue(player, out var tasks))
         {
             InternalData[player] = new TaskInfo
@@ -119,7 +120,7 @@ public sealed class TaskTimers : TimersBase<PlayerInfo, TaskInfo>
         }
 
         var oldDelivery = tasks.Delivery;
-        if (oldDelivery.Allowances == allowances)
+        if (oldDelivery.Allowances == allowances && oldDelivery.LastUpdate != DateTime.MinValue)
             return false;
 
         tasks.Delivery = newDelivery;

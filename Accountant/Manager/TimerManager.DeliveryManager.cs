@@ -70,7 +70,9 @@ public partial class TimerManager
             var player = new PlayerInfo(Dalamud.ClientState.LocalPlayer);
 
             if (_tasks!.AddOrUpdateDeliveries(player, allowances))
+            {
                 _tasks.Save(player);
+            }
         }
 
         private void OnFrameworkDelivery(IFramework _)

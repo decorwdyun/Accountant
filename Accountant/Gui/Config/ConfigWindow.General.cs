@@ -21,9 +21,9 @@ public partial class ConfigWindow
 
         raii.Push(ImGui.EndChild);
 
-        ImGuiRaii.ConfigCheckmark("Enable Plugin", Accountant.Config.Enabled,       EnableTimers);
-        ImGuiRaii.ConfigCheckmark("Show Timers",   Accountant.Config.WindowVisible, b => Accountant.Config.WindowVisible = b);
-        ImGuiRaii.ConfigCheckmark("Show DTR Header", Accountant.Config.ShowDtr, b =>
+        ImGuiRaii.ConfigCheckmark("启用插件", Accountant.Config.Enabled,       EnableTimers);
+        ImGuiRaii.ConfigCheckmark("显示计时器",   Accountant.Config.WindowVisible, b => Accountant.Config.WindowVisible = b);
+        ImGuiRaii.ConfigCheckmark("在服务器信息栏显示", Accountant.Config.ShowDtr, b =>
         {
             Accountant.Config.ShowDtr = b;
             if (b)
@@ -55,27 +55,27 @@ public partial class ConfigWindow
         ImGuiRaii.HoverTooltip("Hide objects that are disabled or limited from the timers.");
         ImGui.NewLine();
 
-        ImGuiRaii.ConfigCheckmark("Show Free Company Warning", Accountant.Config.ShowFreeCompanyWarning,
+        ImGuiRaii.ConfigCheckmark("显示部队警告", Accountant.Config.ShowFreeCompanyWarning,
             b => Accountant.Config.ShowFreeCompanyWarning = b);
-        ImGuiRaii.ConfigCheckmark("Enable Retainer Timers", Accountant.Config.EnableRetainers, EnableRetainers);
+        ImGuiRaii.ConfigCheckmark("开启雇员计时器", Accountant.Config.EnableRetainers, EnableRetainers);
         ImGui.NewLine();
-        ImGuiRaii.ConfigCheckmark("Enable Airship Timers",         Accountant.Config.EnableAirships,     EnableAirships);
-        ImGuiRaii.ConfigCheckmark("Enable Submersible Timers",     Accountant.Config.EnableSubmersibles, EnableSubmersibles);
-        ImGuiRaii.ConfigCheckmark("Enable Aetherial Wheel Timers", Accountant.Config.EnableWheels,       EnableWheels);
+        ImGuiRaii.ConfigCheckmark("开启飞空艇计时器",         Accountant.Config.EnableAirships,     EnableAirships);
+        ImGuiRaii.ConfigCheckmark("开启潜水艇计时器",     Accountant.Config.EnableSubmersibles, EnableSubmersibles);
+        ImGuiRaii.ConfigCheckmark("开启以太转轮计时器", Accountant.Config.EnableWheels,       EnableWheels);
         ImGui.NewLine();
-        ImGuiRaii.ConfigCheckmark("Enable Crop Timers",        Accountant.Config.EnableCrops, EnableCrops);
+        ImGuiRaii.ConfigCheckmark("开启作物计时器",        Accountant.Config.EnableCrops, EnableCrops);
         ImGuiRaii.ConfigCheckmark("Ignore Indoor Plot Plants", Accountant.Config.IgnoreIndoorPlants, IgnoreIndoorPlants);
         ImGuiRaii.ConfigCheckmark("Group Crop Beds by Plant",  Accountant.Config.OrderByCrop, OrderByCrop);
         ImGuiRaii.ConfigCheckmark("Show Ward-Update Tooltip",  Accountant.Config.ShowCropTooltip, v => Accountant.Config.ShowCropTooltip = v);
         ImGui.NewLine();
-        ImGuiRaii.ConfigCheckmark("Enable Leve Allowance Timers", Accountant.Config.EnableLeveAllowances, EnableLeveAllowances);
+        ImGuiRaii.ConfigCheckmark("开启理符计时器", Accountant.Config.EnableLeveAllowances, EnableLeveAllowances);
         DrawLeveAllowancesWarningInput();
-        ImGuiRaii.ConfigCheckmark("Enable Squadron Mission Timers",          Accountant.Config.EnableSquadron,     EnableSquadron);
-        ImGuiRaii.ConfigCheckmark("Enable Map Allowance Timers",             Accountant.Config.EnableMapAllowance, EnableMapAllowance);
-        ImGuiRaii.ConfigCheckmark("Enable Mini Cactpot Timers",              Accountant.Config.EnableMiniCactpot,  EnableMiniCactpot);
-        ImGuiRaii.ConfigCheckmark("Enable Jumbo Cactpot Timers",             Accountant.Config.EnableJumboCactpot, EnableJumboCactpot);
-        ImGuiRaii.ConfigCheckmark("Enable Custom Delivery Allowance Timers", Accountant.Config.EnableDeliveries,   EnableDeliveries);
-        ImGuiRaii.ConfigCheckmark("Enable Tribe Allowance Timers",           Accountant.Config.EnableTribes,       EnableTribes);
+        ImGuiRaii.ConfigCheckmark("开启冒险者小队计时器",          Accountant.Config.EnableSquadron,     EnableSquadron);
+        ImGuiRaii.ConfigCheckmark("开启藏宝图计时器",             Accountant.Config.EnableMapAllowance, EnableMapAllowance);
+        ImGuiRaii.ConfigCheckmark("开启仙人微彩计时器",              Accountant.Config.EnableMiniCactpot,  EnableMiniCactpot);
+        ImGuiRaii.ConfigCheckmark("开启仙人彩计时器",             Accountant.Config.EnableJumboCactpot, EnableJumboCactpot);
+        ImGuiRaii.ConfigCheckmark("开启老主顾计时器", Accountant.Config.EnableDeliveries,   EnableDeliveries);
+        ImGuiRaii.ConfigCheckmark("开启友好部族计时器",           Accountant.Config.EnableTribes,       EnableTribes);
         DrawTribeAllowancesFinishedInput();
         ImGui.NewLine();
     }

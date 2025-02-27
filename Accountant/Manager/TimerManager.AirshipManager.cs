@@ -35,7 +35,7 @@ public partial class TimerManager
         }
 
         public TimerWindow.BaseCache CreateCache(TimerWindow window)
-            => new TimerWindow.MachineCache(window, RequiredFlags, "Airships", MachineType.Airship, _airships, _submersibles);
+            => new TimerWindow.MachineCache(window, RequiredFlags, "飞空艇", MachineType.Airship, _airships, _submersibles);
 
         public void SetState()
         {
