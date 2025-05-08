@@ -200,7 +200,7 @@ public partial class TimerWindow : IDisposable
             return;
 
         using var c = ImGuiRaii.PushColor(ImGuiCol.Header, _demolitionWarning.HeaderColor.Value());
-        if (!ImGui.CollapsingHeader("Demolishing Houses", ImGuiTreeNodeFlags.DefaultOpen))
+        if (!ImGui.CollapsingHeader("房屋自动拆除", ImGuiTreeNodeFlags.DefaultOpen))
             return;
 
         foreach (var warning in _demolitionWarning.Warnings)

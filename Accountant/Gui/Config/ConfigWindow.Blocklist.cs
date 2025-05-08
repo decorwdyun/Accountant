@@ -32,7 +32,7 @@ public partial class ConfigWindow
 
         if (ImGui.CollapsingHeader("Blocked Crops"))
             DrawBlockedCrops();
-        if (ImGui.CollapsingHeader("Blocked Plots"))
+        if (ImGui.CollapsingHeader("黑名单房屋"))
             DrawBlockedPlots();
         if (ImGui.CollapsingHeader("黑名单玩家 (作物)"))
             DrawBlockedPlayers("Crops", Accountant.Config.BlockedPlayersCrops, typeof(TimerWindow.CropCache));
